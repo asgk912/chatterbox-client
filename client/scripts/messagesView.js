@@ -14,6 +14,6 @@ var MessagesView = {
   },
 
   renderMessage: function(message) {
-    MessagesView.$chats.prepend(MessageView.render(message));
+    MessagesView.$chats.append(MessageView.render(message));
   }
 };

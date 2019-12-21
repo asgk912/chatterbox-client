@@ -18,8 +18,7 @@ var App = {
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
-      // examine the response from the server request:
-      // console.log(data);
+      MessagesView.$chats.html('');
       var objectId;
       for (var i = 0; i < data.results.length; i++) {
         // check if both username and text have value
@@ -40,7 +39,14 @@ var App = {
               // no html element because it does not have <, skip to the next or get out of loop
               continue;
             }
+
             // find where tag name ends
+            var endTagIndex = underTest.indexOf('>');
+            if (openTagIndex === -1) {
+              // no html element because it does not have >, skip to the next or get out of loop
+              continue;
+            }
+            /* PAST WORK - not necessary
             var emptyIndex = underTest.indexOf(' ', openTagIndex);
             var closeTagIndex = underTest.indexOf('>', openTagIndex);
             if (emptyIndex < 0 && closeTagIndex < 0) {
@@ -52,12 +58,19 @@ var App = {
             } else {
               var tagNameEndIndex = (emptyIndex < closeTagIndex) ? emptyIndex : closeTagIndex;
             }
+            */
 
             // select tag name
+            var tagName = underTest.substring(openTagIndex + 1, endTagIndex);
+            if (tagName.indexOf(' ') !== -1) {
+              tagName = tagName.substring(0, tagName.indexOf(' '));
+            }
+            /* PAST WORK - not necessary
             var tagName = underTest.substring(openTagIndex + 1, tagNameEndIndex);
+            */
 
-            // check if it has closing tag
-            if (underTest.includes(`</${tagName}>`, tagNameEndIndex)) {
+            // it has opening tag, so check if it has closing tag
+            if (underTest.includes(`</${tagName}>`, openTagIndex + 1)) {
               hasHTMLElement = true;
             }
           }
