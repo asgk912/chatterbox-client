@@ -48,6 +48,15 @@
     <script src="client/scripts/app.js"></script>
     <script>
       $(() => App.initialize());
+      $(function() {
+        $('#main').append('<input id="refresh" type="button" value="Refresh">');
+        $('#refresh').click(function(){
+          MessagesView.render();
+        });
+      });
+      $(document).on("click", "#rooms", function() {
+        rooms
+      });
     </script>
   </body>
 </html>
