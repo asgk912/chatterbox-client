@@ -11,13 +11,20 @@ var FormView = {
     // Stop the browser from submitting the form
     event.preventDefault();
 
-    // console.log('click!');
-    // Need to grab the object and store in Controller
-    // Then Controller sends the information back to the messageView
+    // deativate submit button momentarily and start Spinner to tell user it is running
+    FormView.setStatus(true);
+    App.startSpinner();
+
+    // retrieve necessary information from page and change into message form
     var text = FormView.$form.find('input#message').val();
-    var message = {'username': App.username, 'text': text};
-    // Parse.create(myMsg);
-    MessagesView.renderMessage(message);
+    var message = {'username': App.username, 'text': text, 'room': undefined};
+
+    // Post message to the server and retrieve data back.
+    Parse.create(message);
+    App.fetch(App.stopSpinner);
+
+    // reativate submit button
+    FormView.setStatus();
   },
 
   setStatus: function(active) {
