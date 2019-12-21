@@ -51,12 +51,13 @@
       $(function() {
         $('#main').append('<input id="refresh" type="button" value="Refresh">');
         $('#refresh').click(function(){
-          MessagesView.render();
+          App.startSpinner();
+          App.fetch(App.stopSpinner);
         });
       });
-      $(document).on("click", "#rooms", function() {
-        rooms
-      });
+      // $(document).on("click", "#rooms", function() {
+
+      // });
     </script>
   </body>
 </html>

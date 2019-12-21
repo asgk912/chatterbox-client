@@ -11,9 +11,13 @@ var FormView = {
     // Stop the browser from submitting the form
     event.preventDefault();
 
-    console.log('click!');
+    // console.log('click!');
     // Need to grab the object and store in Controller
     // Then Controller sends the information back to the messageView
+    var text = FormView.$form.find('input#message').val();
+    var message = {'username': App.username, 'text': text};
+    // Parse.create(myMsg);
+    MessagesView.renderMessage(message);
   },
 
   setStatus: function(active) {

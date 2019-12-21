@@ -27,6 +27,8 @@ var App = {
         objectId = data.results[i].objectId;
         Messages[objectId] = data.results[i];
         delete Messages[objectId]['objectId'];
+
+        MessagesView.renderMessage(Messages[objectId]);
         // }
       }
 
