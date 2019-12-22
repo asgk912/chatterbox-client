@@ -1,3 +1,5 @@
 var Friends = {
-
+  toggleStatus: function() {
+//
+  };
 };

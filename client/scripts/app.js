@@ -18,8 +18,6 @@ var App = {
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
-      MessagesView.$chats.html('');
-      var objectId;
       for (var i = 0; i < data.results.length; i++) {
         // check if both username and text have value
         if (data.results[i].username !== undefined && data.results[i].text !== undefined) {
@@ -78,12 +76,13 @@ var App = {
 
           // save data into message if there is no html element
           if (!hasHTMLElement) {
-            objectId = data.results[i].objectId;
+            var objectId = data.results[i].objectId;
             Messages[objectId] = data.results[i];
             delete Messages[objectId]['objectId'];
 
-            // render message and post it on page
-            MessagesView.renderMessage(Messages[objectId]);
+            // render room
+            // MessagesView.renderMessage(Messages[objectId]);
+            RoomsView.renderRoom(Messages[objectId].roomname);
           }
         }
       }

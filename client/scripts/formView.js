@@ -17,14 +17,19 @@ var FormView = {
 
     // retrieve necessary information from page and change into message form
     var text = FormView.$form.find('input#message').val();
-    var message = {'username': App.username, 'text': text, 'room': undefined};
+    var selectedIndex = RoomsView.$select[0].options.selectedIndex;
+    var selectedRoom = RoomsView.$select[0].options[selectedIndex].value;
+
+    var message = {'username': App.username, 'text': text, 'roomname': selectedRoom};
 
     // Post message to the server and retrieve data back.
     Parse.create(message);
-    App.fetch(App.stopSpinner);
+    App.fetch();
+    RoomsView.selectRoom();
 
     // reativate submit button
     FormView.setStatus();
+    App.stopSpinner();
   },
 
   setStatus: function(active) {

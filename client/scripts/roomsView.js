@@ -4,14 +4,28 @@ var RoomsView = {
   $select: $('#rooms select'),
 
   initialize: function() {
+    RoomsView.$select.on('change', RoomsView.selectRoom);
+    RoomsView.$button.on('click', Rooms.add);
   },
 
-  render: function() {
+  selectRoom: function(event) {
+    var selectedIndex = RoomsView.$select[0].options.selectedIndex;
+    var selectedRoom = RoomsView.$select[0].options[selectedIndex].value;
+
+    MessagesView.$chats.html('');
+
+    for (var objectId in Messages) {
+      if (Messages[objectId].roomname === selectedRoom) {
+        MessagesView.renderMessage(Messages[objectId]);
+      }
+    }
   },
 
   renderRoom: function(room) {
-    var htmlText = `<option value="${room}">${room}</option>`;
-    RoomsView.$select.append(htmlText);
+    if (!Rooms.roomname[room]) {
+      Rooms.roomname[room] = true;
+      var htmlText = `<option value="${room}">${room}</option>`;
+      RoomsView.$select.append(htmlText);
+    }
   }
-
 };
