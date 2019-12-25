@@ -27,7 +27,8 @@ var FormView = {
     App.fetch();
     RoomsView.selectRoom();
 
-    // reativate submit button
+    // reativate submit button and delete words on submit form
+    FormView.$form.find('input#message').val('');
     FormView.setStatus();
     App.stopSpinner();
   },
