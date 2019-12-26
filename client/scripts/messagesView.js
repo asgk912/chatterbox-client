@@ -3,14 +3,7 @@ var MessagesView = {
   $chats: $('#chats'),
 
   initialize: function() {
-    // to make messages display automatically by using renderMessage processing
-  },
-
-  render: function() {
-    // Interact with messageView.js
-    for (keys in Messages) {
-      MessagesView.renderMessage(Messages[keys]);
-    }
+    MessagesView.$chats.find('.username').on('click', Friends.toggleStatus);
   },
 
   renderMessage: function(message) {

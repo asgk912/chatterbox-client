@@ -3,7 +3,7 @@ var FormView = {
   $form: $('form'),
 
   initialize: function() {
-    // When the "submit" button is clicked, perform handleSubmit function
+    // when the "submit" button is clicked, perform handleSubmit function
     FormView.$form.on('submit', FormView.handleSubmit);
   },
 
@@ -17,17 +17,18 @@ var FormView = {
 
     // retrieve necessary information from page and change into message form
     var text = FormView.$form.find('input#message').val();
+    
     var selectedIndex = RoomsView.$select[0].options.selectedIndex;
     var selectedRoom = RoomsView.$select[0].options[selectedIndex].value;
 
     var message = {'username': App.username, 'text': text, 'roomname': selectedRoom};
 
-    // Post message to the server and retrieve data back.
+    // Post message to the server, retrieve data back, and redner messages on page
     Parse.create(message);
     App.fetch();
-    RoomsView.selectRoom();
+    RoomsView.changeRoom();
 
-    // reativate submit button and delete words on submit form
+    // reativate submit button and clear input field
     FormView.$form.find('input#message').val('');
     FormView.setStatus();
     App.stopSpinner();

@@ -31,17 +31,17 @@ var App = {
               var underTest = data.results[i].text;
             }
 
-            // find where tag name "start"
+            // find where tag name "starts"
             var openTagIndex = underTest.indexOf('<');
             if (openTagIndex === -1) {
-              // no html element because it does not have <, skip to the next or get out of loop
+              // no html element because it does not have <, skip to the next or exit the loop
               continue;
             }
 
-            // find where tag name ends
+            // find where tag name "ends"
             var endTagIndex = underTest.indexOf('>');
             if (openTagIndex === -1) {
-              // no html element because it does not have >, skip to the next or get out of loop
+              // no html element because it does not have >, skip to the next or exit the loop
               continue;
             }
             /* PAST WORK - not necessary
@@ -74,18 +74,24 @@ var App = {
           }
           // end checking html element
 
-          // save data into message if there is no html element
+          // save fetched data into message if there is no html element
           if (!hasHTMLElement) {
+            // copy part of messages
             var objectId = data.results[i].objectId;
-            Messages[objectId] = data.results[i];
-            delete Messages[objectId]['objectId'];
+            // Messages[objectId] = data.results[i];
+            Messages[objectId] = {};
+            Messages[objectId].username = data.results[i].username;
+            Messages[objectId].text = data.results[i].text;
+            Messages[objectId].roomname = data.results[i].roomname;
 
             // render room
-            // MessagesView.renderMessage(Messages[objectId]);
-            RoomsView.renderRoom(Messages[objectId].roomname);
+            Rooms.add(Messages[objectId].roomname);
           }
         }
       }
+
+      // post messages of the room of the first message
+      RoomsView.changeRoom();
 
       callback();
     });
