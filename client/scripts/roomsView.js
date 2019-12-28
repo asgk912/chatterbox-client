@@ -16,7 +16,7 @@ var RoomsView = {
     var selectedIndex = RoomsView.$select[0].options.selectedIndex;
     var selectedRoom = RoomsView.$select[0].options[selectedIndex].value;
     // handle the case of message without specific roomname
-    if(selectedRoom === ''){
+    if (selectedRoom === '') {
       selectedRoom = undefined;
     }
 
